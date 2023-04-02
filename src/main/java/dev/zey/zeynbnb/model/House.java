@@ -22,6 +22,6 @@ public class House {
     private String description;
     private String amenities;
     private Integer maxPeople;
-    private Date startDate;
-    private Date endDate;
+    @ElementCollection
+    private List<Date> bookedDates;
 }

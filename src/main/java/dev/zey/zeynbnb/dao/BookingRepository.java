@@ -1,4 +1,7 @@
 package dev.zey.zeynbnb.dao;
 
-public interface BookingRepository {
+import dev.zey.zeynbnb.model.Booking;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BookingRepository extends JpaRepository<Booking,Long> {
 }

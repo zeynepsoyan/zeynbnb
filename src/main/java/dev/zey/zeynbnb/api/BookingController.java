@@ -1,30 +1,29 @@
 package dev.zey.zeynbnb.api;
 
-
-import dev.zey.zeynbnb.model.Booking;
-import dev.zey.zeynbnb.service.BookingServiceImpl;
+import dev.zey.zeynbnb.dto.BookingRequest;
+import dev.zey.zeynbnb.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
-@RequestMapping("api/v1/booking")
 @RestController
+@RequestMapping("api/v1/booking")
 public class BookingController {
 
-    private final BookingServiceImpl bookingService;
-
     @Autowired
-    public BookingController(BookingServiceImpl bookingService) {
-        this.bookingService = bookingService;
+    BookingService bookingService;
+
+    // TODO: Authentication support
+    @PostMapping(value = "/")
+    public ResponseEntity<?> create(@RequestBody BookingRequest request) {
+        return bookingService.create(request);
     }
 
-    public List<Booking> getBookingDetails(String bookingId) {
-        return List.of();
+    @GetMapping(path = "{id}")
+    public ResponseEntity<?> getBookingDetails(@PathVariable("id") Long id) {
+        return bookingService.getBookingDetails(id);
     }
 
-    public String makeBooking() {
-        return "<bookingId>";
-    }
 }
+
