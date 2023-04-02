@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("postgres")
-public interface HouseRepository extends JpaRepository<House,String> {
+public interface HouseRepository extends JpaRepository<House,Long> {
 
     List<House> getHouseWithFilter();
 
