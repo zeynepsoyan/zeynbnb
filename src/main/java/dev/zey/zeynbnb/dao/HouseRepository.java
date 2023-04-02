@@ -12,7 +12,6 @@ import java.util.List;
 
 public interface HouseRepository extends JpaRepository<House,Long> {
 
-    // Supports pagination
     @Query(value = "SELECT * FROM house", countQuery = "SELECT count(*) FROM house", nativeQuery = true)
     Page<House> findAllWithPagination(Pageable pageable);
 

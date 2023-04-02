@@ -5,6 +5,8 @@ import dev.zey.zeynbnb.dto.CreateHouseRequest;
 import dev.zey.zeynbnb.dto.QueryHouseRequest;
 import dev.zey.zeynbnb.model.House;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,11 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public ResponseEntity<List<House>> getAllHouse() {
         return ResponseEntity.ok(houseRepository.findAll());
+    }
+
+    @Override
+    public Page<House> findAllWithPagination(Pageable pageable) {
+        return houseRepository.findAllWithPagination(pageable);
     }
 
     @Override
