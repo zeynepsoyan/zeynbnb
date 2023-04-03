@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,6 +20,4 @@ public class House {
     private String description;
     private String amenities;
     private Integer maxPeople;
-    @ElementCollection
-    private List<Date> bookedDates;
 }

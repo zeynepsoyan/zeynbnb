@@ -43,7 +43,6 @@ public class HouseServiceImpl implements HouseService {
                 .header("House-Description", house.getDescription())
                 .header("House-Amenities", house.getAmenities())
                 .header("House-MaxPeople", house.getMaxPeople().toString())
-                .header("House-BookedDates", house.getBookedDates().toString())
                 .build();
     }
 
@@ -54,7 +53,6 @@ public class HouseServiceImpl implements HouseService {
         house.setDescription(request.getDescription());
         house.setAmenities(request.getAmenities());
         house.setMaxPeople(request.getMaxPeople());
-        house.setBookedDates(new ArrayList<>(Arrays.asList(new Date())) {});
         return house;
     }
 
@@ -75,9 +73,11 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public ResponseEntity<List<House>> queryHouse(QueryHouseRequest request) {
-        return ResponseEntity.ok(houseRepository.findByCityIgnoreCaseAndMaxPeopleLessThanEqual(
+        return ResponseEntity.ok(houseRepository.findByCityIgnoreCaseAndMaxPeopleLessThanEqualAndDatesNotOverlap(
                 request.getCity(),
-                request.getNumPeople()
+                request.getNumPeople(),
+                request.getFromDate(),
+                request.getToDate()
         ));
     }
 
