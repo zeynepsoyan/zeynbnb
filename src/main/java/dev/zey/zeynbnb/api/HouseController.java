@@ -5,7 +5,6 @@ import dev.zey.zeynbnb.dto.QueryHouseRequest;
 import dev.zey.zeynbnb.model.House;
 import dev.zey.zeynbnb.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +25,19 @@ public class HouseController {
         return houseService.create(request);
     }
 
+    @GetMapping(value = "/initHouses")
+    public ResponseEntity<?> initHouses() {
+        return houseService.initDb();
+    }
+
     @GetMapping
     public ResponseEntity<List<House>> getAllHouse() {
         return houseService.getAllHouse();
     }
 
-    @GetMapping
-    public Page<House> getAllHouseWithPagination() {
-        Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
+    @GetMapping(value = "/page/{size}")
+    public ResponseEntity<List<House>> getAllHouseWithPagination(@PathVariable("size") Integer size) {
+        Pageable firstPageWithTwoElements = PageRequest.of(0, size);
         return houseService.findAllWithPagination(firstPageWithTwoElements);
     }
 

@@ -1,6 +1,7 @@
 package dev.zey.zeynbnb.service;
 
 import dev.zey.zeynbnb.dao.HouseRepository;
+import dev.zey.zeynbnb.datasource.PostgresInit;
 import dev.zey.zeynbnb.dto.CreateHouseRequest;
 import dev.zey.zeynbnb.dto.QueryHouseRequest;
 import dev.zey.zeynbnb.model.House;
@@ -21,6 +22,15 @@ import java.util.List;
 public class HouseServiceImpl implements HouseService {
 
     private final HouseRepository houseRepository;
+    private final PostgresInit postgresInit;
+
+    @Override
+    public ResponseEntity<?> initDb() {
+        for (CreateHouseRequest request : postgresInit.housesInit()) {
+            create(request);
+        }
+        return ResponseEntity.ok().build();
+    }
 
     @Override
     public ResponseEntity<?> create(CreateHouseRequest request) {
@@ -54,8 +64,8 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Page<House> findAllWithPagination(Pageable pageable) {
-        return houseRepository.findAllWithPagination(pageable);
+    public ResponseEntity<List<House>> findAllWithPagination(Pageable pageable) {
+        return ResponseEntity.ok(houseRepository.findAllWithPagination(pageable).getContent());
     }
 
     @Override

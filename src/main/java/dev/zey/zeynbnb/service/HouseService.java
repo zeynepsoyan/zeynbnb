@@ -12,11 +12,13 @@ import java.util.List;
 
 public interface HouseService {
 
+    ResponseEntity<?> initDb();
+
     ResponseEntity<?> create(CreateHouseRequest request);
 
     ResponseEntity<List<House>> getAllHouse();
 
-    Page<House> findAllWithPagination(Pageable pageable);
+    ResponseEntity<List<House>> findAllWithPagination(Pageable pageable);
 
     ResponseEntity<?> getHouseById(Long id);
 
